@@ -1,6 +1,6 @@
 # invitation-backend
 
-## Run yarn, to install all dependencies used
+Run yarn, to install all dependencies used
 
 ### yarn 
 
