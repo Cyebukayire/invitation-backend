@@ -1,0 +1,8 @@
+{
+  "name": "invitation-backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/ishgervais/invitation-backend.git",
+  "author": "ishgervais <ishimwegervais11@gmail.com>",
+  "license": "MIT"
+}
