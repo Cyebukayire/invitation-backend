@@ -3,6 +3,17 @@
   "version": "1.0.0",
   "main": "app.js",
   "repository": "https://github.com/ishgervais/invitation-backend.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
   "author": "ishgervais <ishimwegervais11@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.5"
+  }
 }
