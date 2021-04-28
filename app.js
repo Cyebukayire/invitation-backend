@@ -12,10 +12,14 @@ app.use(express.json());
 app.use(cors());
 // use express
 
+// importing routes
+const UserRoutes = require('./routes/user.routes');
+
 
 app.get("/",(req,res)=>{
     res.send({message:"Welcome to invitation portal"});
-})
+});
+app.use("/api/v1/user",UserRoutes);
 
 
 const PORT = process.env.PORT || 5000;
