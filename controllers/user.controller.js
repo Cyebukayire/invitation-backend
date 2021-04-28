@@ -58,7 +58,7 @@ module.exports.activDeactivateUser = async(req,res)=>{
             if(userStatus === 'ACTIVE'){ userStatus='INACTIVE'}
             else userStatus = 'ACTIVE';
             let newUser = await User.findByIdAndUpdate(req.params.id,{status:userStatus},{new:true});
-            if(newUser){return res.send({success:true,data:"Updating user status done successfully"}).status(201);}
+            if(newUser){return res.send({success:true,message:"Updating user status done successfully",data:newUser}).status(201);}
             else return res.send({success:false,data:"Updating user status failed"}).status(400);
         }
     }catch(e){return res.send({success:false,data:e.message})}
@@ -67,7 +67,7 @@ module.exports.activDeactivateUser = async(req,res)=>{
 module.exports.deleteUser = async(req,res)=>{
     try{
         let user = await User.findByIdAndDelete(req.params.id);
-        if(user){return res.send({success:true, data:"User deleted successfully"}).status(201);}
+        if(user){return res.send({success:true, message:"User deleted successfully",data:user}).status(201);}
         else return res.send({success:false, data:"Deleting user failed"}).status(400);
     }catch(e){return res.send({success:false,data:e.message})}
 }
