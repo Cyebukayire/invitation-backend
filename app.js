@@ -14,13 +14,14 @@ app.use(cors());
 
 // importing routes
 const UserRoutes = require('./routes/user.routes');
+const workRoutes = require('./routes/workspace.routes');
 
 
 app.get("/",(req,res)=>{
     res.send({message:"Welcome to invitation portal"});
 });
 app.use("/api/v1/user",UserRoutes);
-
+app.use("/api/v1/workspace",workRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT,console.log(`Server is running on port ${PORT} ...`))
