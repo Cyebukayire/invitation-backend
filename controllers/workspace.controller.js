@@ -71,10 +71,18 @@ module.exports.deleteWorkspace = async(req,res)=>{
     }
 }
 
-module.exports.deactivateWorkspace = async(req,res)=>{
+module.exports.workspaceStatusChange = async(req,res)=>{
     try{
-
-    }catch(error){
-
+        let workspace = await Workspace.findById(req.params.id);
+        if(workspace){ 
+            let workStatus = workspace.wStatus;
+            if(workStatus === 'ACTIVE'){ workStatus='INACTIVE'}
+            else workStatus = 'ACTIVE';
+            let newWorkspace = await Workspace.findByIdAndUpdate(req.params.id,{status:wStatus},{new:true});
+            if(newWorkspace){return res.send({success:true,message:"Updating user status done successfully",data:newWorkspace}).status(201);}
+            else return res.send({success:false,data:"Updating user status failed"}).status(400);
     }
+}
+catch(error){return res.send({success:false,data:error.message})}
+
 }
