@@ -1,5 +1,4 @@
 // load env variables
-
 const dotenv = require("dotenv");
 dotenv.config({path:"./config/config.env"});
 const path = require("path");

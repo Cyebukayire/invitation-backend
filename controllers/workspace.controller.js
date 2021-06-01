@@ -70,3 +70,11 @@ module.exports.deleteWorkspace = async(req,res)=>{
         res.send({status:false,data:error.message})
     }
 }
+
+module.exports.deactivateWorkspace = async(req,res)=>{
+    try{
+
+    }catch(error){
+
+    }
+}
