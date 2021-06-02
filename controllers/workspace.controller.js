@@ -30,6 +30,7 @@ module.exports.getWorkspaces = async(req,res)=>{
     }
 }
 
+// getting workspace by id
 module.exports.getWorkspaceById = async(req,res)=>{
     try {
         let workspace = await WorkSpace.findById(req.params.id);
@@ -40,6 +41,7 @@ module.exports.getWorkspaceById = async(req,res)=>{
     }
 }
 
+// updating workspace
 module.exports.updateWorkspace = async(req,res)=>{
     try {
         let workspace = await WorkSpace.findById(req.params.id);
@@ -58,6 +60,8 @@ module.exports.updateWorkspace = async(req,res)=>{
         }
 
 }
+
+// deleting workspace
 module.exports.deleteWorkspace = async(req,res)=>{
     try {
         let workspace = await WorkSpace.findById(req.params.id);
@@ -71,15 +75,17 @@ module.exports.deleteWorkspace = async(req,res)=>{
     }
 }
 
+// change workspace status
 module.exports.workspaceStatusUpdate = async(req,res)=>{
     try{
-        let workspace = await Workspace.findById(req.params.id);
+        let workspace = await WorkSpace.findById(req.params.id);
         if(workspace){ 
-            let worksStatus = workspace.wStatus;
-            if(worksStatus === 'ACTIVE'){ worksStatus='INACTIVE'}
-            else worksStatus = 'ACTIVE';
-            let newWorkspace = await Workspace.findByIdAndUpdate(req.params.id,{status:worksStatus},{new:true});
-            if(newWorkspace){return res.send({success:true,message:"Updating workspace status done successfully",data:newWorkspace}).status(201);}
+            let status = workspace.wStatus;
+            if(status === 'ACTIVE'){ status='INACTIVE'}
+            else status = 'ACTIVE';
+            console.log(status);
+            let neWspaceStatus = await WorkSpace.findByIdAndUpdate(req.params.id,{wStatus:status},{new:true});
+            if(neWspaceStatus){return res.send({success:true,message:"Updating workspace status done successfully",data:neWspaceStatus}).status(201);}
             else return res.send({success:false,data:"Updating workspace status failed"}).status(400);
         }
     }catch(error){return res.send({success:false,data:error.message})}
