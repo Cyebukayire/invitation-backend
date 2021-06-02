@@ -11,7 +11,7 @@ module.exports.createWorkspace = async(req,res)=>{
 
         let workspace = await WorkSpace.create({...req.body});
         if(workspace){return res.send({success:true,message:"workspace created successfully",data:workspace}).status(201);}
-        else return res.send({success:false,data:"User creation failed"}).status(400);
+        else return res.send({success:false,data:"Workspace creation failed"}).status(400);
         
     } catch (error) {
         res.send({status:false,data:error.message})
@@ -71,18 +71,16 @@ module.exports.deleteWorkspace = async(req,res)=>{
     }
 }
 
-module.exports.workspaceStatusChange = async(req,res)=>{
+module.exports.workspaceStatusUpdate = async(req,res)=>{
     try{
         let workspace = await Workspace.findById(req.params.id);
         if(workspace){ 
-            let workStatus = workspace.wStatus;
-            if(workStatus === 'ACTIVE'){ workStatus='INACTIVE'}
-            else workStatus = 'ACTIVE';
-            let newWorkspace = await Workspace.findByIdAndUpdate(req.params.id,{status:wStatus},{new:true});
-            if(newWorkspace){return res.send({success:true,message:"Updating user status done successfully",data:newWorkspace}).status(201);}
-            else return res.send({success:false,data:"Updating user status failed"}).status(400);
-    }
-}
-catch(error){return res.send({success:false,data:error.message})}
-
+            let worksStatus = workspace.wStatus;
+            if(worksStatus === 'ACTIVE'){ worksStatus='INACTIVE'}
+            else worksStatus = 'ACTIVE';
+            let newWorkspace = await Workspace.findByIdAndUpdate(req.params.id,{status:worksStatus},{new:true});
+            if(newWorkspace){return res.send({success:true,message:"Updating workspace status done successfully",data:newWorkspace}).status(201);}
+            else return res.send({success:false,data:"Updating workspace status failed"}).status(400);
+        }
+    }catch(error){return res.send({success:false,data:error.message})}
 }
