@@ -8,6 +8,11 @@ const eventCatSchema = new mongoose.Schema({
     cat_description:{
         type: String,
         required: true
+    },
+    status:{
+        type:String,
+        default:'ACTIVE',
+        enum:['ACTIVE','INACTIVE']
     }
 })
 module.exports.eventCat = mongoose.model("eventCat",eventCatSchema)
