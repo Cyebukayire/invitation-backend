@@ -87,3 +87,20 @@ module.exports.login =async(req,res)=>{
 
     }catch(e){return res.send({success:false,data:e.message})}
 }
+
+// update password 
+
+module.exports.updatePassword = async(req,res) => {
+    try{
+        const user  = await User.findById(req.user._id);
+        const oldPassword = await bcrypt.compare(req.body.old_password,user.password);
+        if(!oldPassword){return res.send({success:false,message:'Old password is incorrect'}).status(404)}
+     
+        const newPassword = await hashPassword(req.body.new_password);
+        console.log(newPassword)
+        user.password = newPassword;
+        user.save();
+        return res.send({success:true,message:'Password updated successfully'}).status(201)
+
+    }catch(e){return res.send({success:false,message:e.message})}
+}
