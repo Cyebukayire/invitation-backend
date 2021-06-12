@@ -1,4 +1,5 @@
-const e = require("express");
+const bcrypt = require("bcrypt");
+const {hashPassword} = require('../utils/hash')
 const {User} = require("../models/user.model");
 
 // getting all users
@@ -26,6 +27,8 @@ module.exports.createUser = async(req,res)=>{
         if(emailChecker){return res.send({success:false, data:"The email is being used by another user"}).status(400)}
         if(phoneChecker){return res.send({success:false, data:"The phone number is being used by another user"}).status(400)}
         
+        // hash Password
+        req.body.password = await hashPassword(req.body.password)
         let user = await User.create({...req.body});
         if(user){return res.send({success:false,message:"User created successfully",data:user}).status(201);}
         else return res.send({success:false,data:"User creation failed"}).status(400);
@@ -72,3 +75,15 @@ module.exports.deleteUser = async(req,res)=>{
     }catch(e){return res.send({success:false,data:e.message})}
 }
 
+// login 
+
+module.exports.login =async(req,res)=>{
+    try{
+        const user = await User.findOne({email:req.body.email});
+        if(!user){return res.send({success:false, message:"Incorrect email or password"})}
+        const password = await bcrypt.compare(req.body.password,user.password);
+        if(!password) return res.send({success:false, message:"Incorrect email or password"}).status(400)
+        else return res.send({token: await user.generateAuthToken()})
+
+    }catch(e){return res.send({success:false,data:e.message})}
+}
