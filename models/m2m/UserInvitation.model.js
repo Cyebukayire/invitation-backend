@@ -12,10 +12,17 @@ const UserInvitationSchema = new mongoose.Schema({
         required:true,
         ref:"Invitation"
     },
+    read_status:{
+        type:String,
+        enum:['PENDING','SEEN'],
+        default:"PENDING"
+    },
     status:{
         type:String,
-        enum:['PENDING','SEEN']
+        enum:['PENDING','APPROVED','REJECTED'],
+        default:'PENDING'
     }
+
 
 })
 
